@@ -1,5 +1,4 @@
 package com.example.backenddev.cotroller;
-
 import com.example.backenddev.db.Interval;
 import com.example.backenddev.db.IntervalInteger;
 import com.example.backenddev.db.IntervalsLetters;
@@ -8,26 +7,19 @@ import com.example.backenddev.db.repository.LettersIntervalsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
 @RestController
 @RequestMapping("/api/v1/intervals")
 public class IntervalsCombiner {
-
     @Autowired
-    private MergingAlgorithm<Long, IntervalInteger> mergingAlgorithmInteger; // Экземпляр для IntervalInteger
-
+    private MergingAlgorithm<Long, IntervalInteger> mergingAlgorithmInteger;
     @Autowired
-    private MergingAlgorithm<String, IntervalsLetters> mergingAlgorithmLetters; // Экземпляр для IntervalsLetters
-
+    private MergingAlgorithm<String, IntervalsLetters> mergingAlgorithmLetters;
     @Autowired
     private IntegerIntervalsRepository integerIntervalsRepository;
-
     @Autowired
     private LettersIntervalsRepository lettersIntervalsRepository;
-
     @PostMapping("/merge")
     public ResponseEntity<String> mergeIntervals(@RequestParam("kind") String kind, @RequestBody List<List<Object>> intervals) {
         if ("digits".equals(kind)) {
@@ -36,7 +28,7 @@ public class IntervalsCombiner {
                 if (interval.size() == 2 && interval.get(0) instanceof Integer && interval.get(1) instanceof Integer) {
                     Integer start = (Integer) interval.get(0);
                     Integer end = (Integer) interval.get(1);
-                    intervalObjects.add(new IntervalInteger(start.longValue(), end.longValue())); // Преобразуем в Long
+                    intervalObjects.add(new IntervalInteger(start.longValue(), end.longValue()));
                 }
             }
             List<IntervalInteger> mergedIntegerIntervals = mergingAlgorithmInteger.mergeIntervals(intervalObjects);
@@ -55,11 +47,9 @@ public class IntervalsCombiner {
             lettersIntervalsRepository.saveAll(mergedIntervals);
             return ResponseEntity.ok(mergedIntervals.toString());
         } else {
-            return ResponseEntity.badRequest().body("Неподдерживаемый вид данных.");
+            return ResponseEntity.badRequest().body("Неподдерживаемый вид данных");
         }
     }
-
-
     @GetMapping("/min")
     public ResponseEntity<String> getMinimumInterval(@RequestParam("kind") String kind) {
         if ("digits".equals(kind)) {
@@ -69,7 +59,7 @@ public class IntervalsCombiner {
             Interval minimumInterval = mergingAlgorithmLetters.findMinimumIntervalFromSQL(IntervalsLetters.class);
             return ResponseEntity.ok(minimumInterval.toString());
         } else {
-            return ResponseEntity.badRequest().body("Неподдерживаемый вид данных.");
+            return ResponseEntity.badRequest().body("Неподдерживаемый вид данных");
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.example.backenddev.db;
-
 import jakarta.persistence.*;
-
 @Entity
 @Table(name="intervalinteger")
 public class IntervalInteger implements Interval<Long> {
@@ -9,7 +7,6 @@ public class IntervalInteger implements Interval<Long> {
     @GeneratedValue
     @Column(name = "id")
     private Long Id;
-
     @Column(name = "START", nullable = false)
     private Long start;
 
@@ -22,24 +19,19 @@ public class IntervalInteger implements Interval<Long> {
     }
 
     public IntervalInteger() {
-
     }
-
     @Override
     public Long getStart() {
         return start;
     }
-
     @Override
     public void setStart(Long start) {
         this.start = start;
     }
-
     @Override
     public Long getEnd() {
         return end;
     }
-
     @Override
     public void setEnd(Long end) {
         this.end = end;
@@ -48,5 +40,4 @@ public class IntervalInteger implements Interval<Long> {
     public String toString() {
         return "[" + start + "," + end + ']';
     }
-
 }
