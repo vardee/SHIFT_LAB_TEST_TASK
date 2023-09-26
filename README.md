@@ -42,18 +42,28 @@ MergingAlgorithm - файл с алгоритмом(с самим таском),
 
 
 ////////////////////////////////////////////////////////POSTMAN/////////////////////////////////////////////////////////////////////
-                                        Для запросов использовался POSTMAN
 
 
-                                                 POST запросы:
+
+                                                Для запросов использовался POSTMAN
+
+
+                                                        POST запросы:
                                                  
 1)http://localhost:8080/api/v1/intervals/merge?kind=digits         -              для цифр
+
+
+
+
 2)http://localhost:8080/api/v1/intervals/merge?kind=letters        -              для букв
 
 
-                                                GET запросы:
+                                                         GET запросы:
 
 1)http://localhost:8080/api/v1/intervals/min?kind=digits         -              для цифр
+
+
+
 2)http://localhost:8080/api/v1/intervals/min?kind=letters        -              для букв
                                                 
 
