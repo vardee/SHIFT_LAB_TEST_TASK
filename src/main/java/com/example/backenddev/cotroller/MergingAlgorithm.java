@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import com.example.backenddev.db.Interval;
 @Service
-public class MergingAlgorithm<T extends Comparable<T>, I extends com.example.backenddev.db.Interval<T>> {
+public class MergingAlgorithm<T extends Comparable<T>, I extends Interval<T>> {
     @Autowired
     private EntityManager entityManager;
     public List<I> mergeIntervals(List<I> intervals) {
@@ -30,7 +31,7 @@ public class MergingAlgorithm<T extends Comparable<T>, I extends com.example.bac
         }
         return mergedIntervals;
     }
-    public <R extends com.example.backenddev.db.Interval<T>> R findMinimumIntervalFromSQL(Class<R> intervalClass) {
+    public <R extends Interval<T>> R findMinimumIntervalFromSQL(Class<R> intervalClass) {
         String sql = "SELECT start, endValue FROM " + intervalClass.getSimpleName() + " ORDER BY start, endValue LIMIT 1";
         Query query = entityManager.createNativeQuery(sql);
         Object[] result = (Object[]) query.getSingleResult();

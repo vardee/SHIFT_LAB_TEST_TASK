@@ -39,6 +39,6 @@ public class IntervalsLetters implements Interval<String> {
     }
     @Override
     public String toString() {
-        return "[" + start + "," + end + ']';
+        return"[" + start + "," + end + ']';
     }
 }
